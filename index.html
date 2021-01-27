@@ -25,7 +25,7 @@
             
         </section>
         <!-- Log In Section*/ -->
-        <!-- /* Transaction Secttion -->
+        <!-- /* Transaction Section -->
         <section>
             <div id="transaction_Area">
                 <h1>Transaction Area</h1>
@@ -33,7 +33,7 @@
                     <div class="col-md-4">
                         <div class="deposit box">
                             <h5>Deposit</h5>
-                            <h2>$00</h2>
+                            <h2>$<span id="currentDeposit">00</span></h2>
                         </div>
                     </div>
                     <div class="col-md-4 ">
@@ -45,7 +45,26 @@
                     <div class="col-md-4">
                         <div class="balance box">
                         <h5>Balance</h5>
-                        <h2>$1240</h2>
+                        <h2>$ <span id="currentBalance">1240</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form_Area">
+                            <h4>Deposit</h4>
+                            <input id="depositAmount"  type="text" class="form-control" placeholder="$ amount you want to deposit">
+                            <br>
+                            <button id="addDeposit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form_Area">
+                            <h4>Withdraw</h4>
+                            <input id="withdrawAmount" type="text" class="form-control" placeholder="$ amount you want to withdraw">
+                            <br>
+                            <button id="addWithdraw" class="btn btn-success">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -55,7 +74,7 @@
     </main>
     
    <script>
-       document.getElementById("logIn");
+    //    Deposit Button Event Handler
        const loginButton = document.getElementById("logIn");
        loginButton.addEventListener("click", function(){
            const login_Area = document.getElementById("login_Area");
@@ -64,6 +83,41 @@
            const transaction_Section = document.getElementById("transaction_Area");
            transaction_Section.style.display = "block"; 
        })
+
+    //    Deposit Button Event Handler**/
+       const depositBtn = document.getElementById("addDeposit");
+       depositBtn.addEventListener("click", function(){
+           const depositNumber = inputNumber("depositAmount");
+          
+
+        updateStatus("currentDeposit", depositNumber);
+        updateStatus("currentBalance", depositNumber);
+       
+
+        document.getElementById("depositAmount").value = "";
+       })
+    //    Withdraw Button Event Handler
+       const withdrawBtn = document.getElementById("addWithdraw");
+       withdrawBtn.addEventListener("click", function(){
+        const withdrawNumber = inputNumber("withdrawAmount");
+
+        document.getElementById("withdrawAmount").value = "";
+        
+       })
+       function inputNumber(id){
+        const Amount = document.getElementById(id).value;
+        const Number = parseFloat(Amount);
+        return Number;
+       }
+       function updateStatus(id, depositNumber){
+            const current_Amount = document.getElementById(id).innerText;
+            const currentNumber = parseFloat(current_Amount);
+            const total = currentNumber + depositNumber;
+
+            document.getElementById(id).innerText = total;
+       }
+
+       
    </script>
 </body>
 </html>
